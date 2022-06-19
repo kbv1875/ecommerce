@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h5>orders::</h5>
+    
+           <table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Number</th>
+      <th scope="col">Title</th>
+      <th scope="col">Category</th>
+      <th scope="col">Description</th>
+      
+      
+    </tr>
+  </thead>
+  <tbody>
+      {{#each orders}}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{this.date}}</td>
+      <td>{{this.deliveryDetails.address}}</td>
+      <td>{{this.deliveryDetails.pincode}}</td>
+      <td>{{this.deliveryDetails.mobile}}</td>
+      <td>{{this.totalAmount}}</td>
+      <td>{{this.paymentMethod}}</td>
+      <td>{{this.status}}</td>
+      
+      <td>
+        <a href="/view-order-products/{{this._id}}" class="btn btn-primary">View Products</a>
+     
+      </td>
+      </tr>
+      {{/each}}
+    
+  </tbody>
+</table>
+</body>
+</html>

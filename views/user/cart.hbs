@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+    <section>
+    <div class="container">
+        
+        <table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Number</th>
+      <th scope="col">Title</th>
+      <th scope="col">Category</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th>Image</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+      {{#each products}}
+    <tr>
+        
+      <th scope="row">1</th>
+      <td>{{this.product.Name}}</td>
+      <td>{{this.product.Category}}</td>
+      <td>{{this.product.Description}}</td>
+      <td>{{this.product.Price}}</td>
+      <td><img style="width: 50px;height: 50px;" src="/product-images/{{this.product._id}}.jpg" alt=""></td>
+      
+      
+      <td>
+        <button class="cart-item-count mr-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button>
+        <span id="{{this.product._id}}">{{this.quantity}}</span>
+        <button class="cart-item-count ml-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button>
+        <a href="" class="btn btn-danger">Remove</a>
+      </td>
+      {{/each}}
+    
+  </tbody>
+</table>
+<hr>
+<div class="float-right pr-5">
+<h5 class="float-left mr-5">Total: Rs.{{totalValue}}</h5><br>
+<a href="/place-order" class="btn btn-success mt-3" style="width: 100%;"><b>Place Order</b></a>
+</div>
+    </div>
+</section>
+<script>
+    function changeQuantity(cartId,proId,count){
+      let quantity=parseInt(document.getElementById(proId).innerHTML)
+      count=parseInt(count)
+      
+
+        $.ajax({
+            url:'/change-product-quantity',
+            data:{
+               cart:cartId,
+                product:proId,
+                count:count,
+                quantity:quantity
+            },
+            method:'post',
+            success:(response)=>{
+                if(response.removeProduct){
+                  alert("Product removed from Cart")
+                  location.reload()
+                }else{
+                  document.getElementById(proId).innerHTML=quantity+count
+                  
+                }
+            }
+        })
+    }
+</script>
+    
+</body>
+</html>
